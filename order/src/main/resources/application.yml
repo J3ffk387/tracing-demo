@@ -37,5 +37,5 @@ management:
         - info
         - prometheus
 services:
-  catalog: ${CATALOG_URL:http://localhost:8080/api/v1/catalogs/}
-  inventory: ${CATALOG_URL:http://localhost:8081/api/v1/inventories/}
+  catalog: ${CATALOG_URL:http://catalog:8080/api/v1/catalogs/}
+  inventory: ${CATALOG_URL:http://inventory:8081/api/v1/inventories/}
