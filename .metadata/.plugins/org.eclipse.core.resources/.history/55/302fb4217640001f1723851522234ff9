@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<springProperty scope="context" name="serviceName" source="spring.application.name" />
+	<appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+			<providers>
+				<timestamp>
+					<timeZone>UTC</timeZone>
+				</timestamp>
+				<pattern>
+					<pattern>
+						{
+						  "timestamp": "%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}",
+						  "serviceName": "${serviceName}",
+						  "traceId": "%X{trace_id}",
+						  "spanId": "%X{span_id}",
+						  "level": "%level",
+						  "message": "%message",
+						  "exception": "%ex{full}"
+						}
+					</pattern>
+				</pattern>
+			</providers>
+		</encoder>
+	</appender>
+	
+	<appender name="OTEL" class="io.opentelemetry.instrumentation.logback.mdc.v1_0.OpenTelemetryAppender">
+      <appender-ref ref="jsonConsoleAppender"/>
+    </appender>
+
+	<root level="INFO">
+		<appender-ref ref="jsonConsoleAppender" />
+	</root>
+</configuration>
+
+<!-- 
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} trace_id=%X{trace_id} span_id=%X{span_id} trace_flags=%X{trace_flags} %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- Just wrap your logging appender, for example ConsoleAppender, with OpenTelemetryAppender -->
+  <appender name="OTEL" class="io.opentelemetry.instrumentation.logback.mdc.v1_0.OpenTelemetryAppender">
+    <appender-ref ref="CONSOLE"/>
+  </appender>
+
+  <!-- Use the wrapped "OTEL" appender instead of the original "CONSOLE" one -->
+  <root level="INFO">
+    <appender-ref ref="OTEL"/>
+  </root>
+
+</configuration>
+-->

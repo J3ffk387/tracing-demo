@@ -1,0 +1,38 @@
+package com.example.demo.adapter.out.persistence;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.adapter.out.persistence.repository.OrderRepository;
+import com.example.demo.adapter.out.persistence.repository.converter.CatalogConverter;
+import com.example.demo.application.doamin.model.OrderDo;
+import com.example.demo.application.port.out.SaveOrderPort;
+
+@Service
+public class SaveOrderAdpter implements SaveOrderPort{
+	
+	@Autowired
+	OrderRepository orderRepository;
+	
+	@Autowired
+	CatalogConverter catalogConverter;
+
+	@Override
+	public OrderDo getCatalog(long id) {
+		return catalogConverter.poToDo(catalogRepository.findById(id).get());
+	}
+
+	@Override
+	public List<OrderDo> getAllCatalog() {
+		return catalogConverter.poToDo(catalogRepository.findAll());
+	}
+
+	@Override
+	public void save(OrderDo orderDo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

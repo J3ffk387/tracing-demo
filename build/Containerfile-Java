@@ -1,0 +1,13 @@
+FROM registry.access.redhat.com/ubi8/openjdk-17:latest
+EXPOSE 8080
+ARG APP_NAME=default
+ENV APP_HOME=/run/app
+WORKDIR ${APP_HOME}
+COPY ./${APP_NAME}-0.0.1-SNAPSHOT.jar ./app.jar
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v2.5.0/opentelemetry-javaagent.jar ./opentelemetry-javaagent.jar
+USER root
+RUN chown jboss:root ${APP_HOME} && \
+    chmod -R 755 ${APP_HOME}/app.jar && \
+    chmod -R 755 ${APP_HOME}/opentelemetry-javaagent.jar
+USER jboss
+CMD ["java", "-javaagent:./opentelemetry-javaagent.jar", "-jar", "app.jar"]

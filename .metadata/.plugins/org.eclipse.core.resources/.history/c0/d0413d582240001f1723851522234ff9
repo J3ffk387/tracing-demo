@@ -1,0 +1,33 @@
+package com.example.demo.adapter.in.api;
+
+
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.adapter.in.api.dto.GenericResponseDTO;
+import com.example.demo.application.port.in.GetCatalogUseCase;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestController
+public class OrderAPI {
+	
+	@Autowired
+	GetCatalogUseCase getCatalogUseCase;
+	
+	@GetMapping(value = "/api/v1/orders", produces = "application/json")
+	public ResponseEntity<GenericResponseDTO> placeOrder() {
+		log.info("POST /api/v1/orders");
+		return new ResponseEntity<>(GenericResponseDTO.builder()
+				    .code(String.valueOf(HttpStatus.OK.value()))
+				    .message(HttpStatus.OK.name())
+				    .data(getCatalogUseCase.getAllCatalog())
+				    .traceId(MDC.get("traceId"))
+				    .build(), HttpStatus.OK);
+	}
+}

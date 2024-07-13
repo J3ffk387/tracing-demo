@@ -1,0 +1,5 @@
+package com.example.demo.adapter.out.rest;
+
+public class CheckInventoryAdapter {
+
+}

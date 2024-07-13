@@ -1,0 +1,11 @@
+package com.example.demo.application.port.in;
+
+import java.util.List;
+
+import com.example.demo.application.doamin.model.OrderDo;
+
+public interface PlaceOrderUseCase {
+
+	int placeOrder(OrderDo orderDo);
+
+}

@@ -1,0 +1,13 @@
+package com.example.demo.application.port.in;
+
+import java.util.List;
+
+import com.example.demo.application.doamin.model.InventoryDo;
+
+public interface GetCatalogUseCase {
+
+	InventoryDo getCatalog(long id);
+	
+	List<InventoryDo> getAllCatalog();
+
+}

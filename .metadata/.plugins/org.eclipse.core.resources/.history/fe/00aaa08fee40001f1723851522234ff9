@@ -1,0 +1,9 @@
+package com.example.demo.application.port.out;
+
+public interface CheckCatalogPort {
+	/**
+	 * Check catalog 
+	 * @return
+	 */
+	boolean check();
+}

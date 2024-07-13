@@ -1,0 +1,32 @@
+package com.example.demo.adapter.out.persistence;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.adapter.out.persistence.repository.InventoryRepository;
+import com.example.demo.adapter.out.persistence.repository.converter.InventoryConverter;
+import com.example.demo.application.doamin.model.InventoryDo;
+import com.example.demo.application.port.out.LoadCatalogPort;
+
+@Service
+public class CatalogAdpter implements LoadCatalogPort{
+	
+	@Autowired
+	InventoryRepository catalogRepository;
+	
+	@Autowired
+	InventoryConverter catalogConverter;
+
+	@Override
+	public InventoryDo getCatalog(long id) {
+		return catalogConverter.poToDo(catalogRepository.findById(id).get());
+	}
+
+	@Override
+	public List<InventoryDo> getAllCatalog() {
+		return catalogConverter.poToDo(catalogRepository.findAll());
+	}
+
+}

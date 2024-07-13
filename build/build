@@ -1,0 +1,24 @@
+#/bin/bash
+# Backend catalog
+mvn -f ../catalog/pom.xml clean package
+cp ../catalog/target/catalog-0.0.1-SNAPSHOT.jar ./
+podman build -f Containerfile-Java --build-arg APP_NAME=catalog -t catalog:latest
+rm -f catalog-0.0.1-SNAPSHOT.jar
+
+# Backend inventory
+mvn -f ../inventory/pom.xml clean package
+cp ../inventory/target/inventory-0.0.1-SNAPSHOT.jar ./
+podman build -f Containerfile-Java --build-arg APP_NAME=inventory -t inventory:latest
+rm -f inventory-0.0.1-SNAPSHOT.jar
+
+# Backend order
+mvn -f ../order/pom.xml clean package
+cp ../order/target/order-0.0.1-SNAPSHOT.jar ./
+podman build -f Containerfile-Java --build-arg APP_NAME=order -t order:latest
+rm -f order-0.0.1-SNAPSHOT.jar
+
+# Frontend store-app
+# cd store-app
+# npm i 
+# ng build
+# cd ..

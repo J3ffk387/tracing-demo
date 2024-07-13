@@ -1,0 +1,18 @@
+package com.example.demo.adapter.in.api.converter;
+
+import com.example.demo.adapter.out.persistence.repository.po.CatalogPo;
+import com.example.demo.application.doamin.model.CatalogDo;
+
+public class OrderConverter {
+
+	public xxx poToDo(CatalogPo catalogPo) {
+		return CatalogDo.builder()
+				.id(catalogPo.getId())
+				.serialNumber(catalogPo.getSerialNumber())
+				.pruductName(catalogPo.getProductName())
+				.desc(catalogPo.getDesc())	
+				.price(catalogPo.getPrice())
+				.img(catalogPo.getImg())
+				.build();
+	}
+}

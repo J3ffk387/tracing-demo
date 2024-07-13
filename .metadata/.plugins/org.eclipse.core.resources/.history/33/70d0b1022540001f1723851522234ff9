@@ -1,0 +1,34 @@
+package com.example.demo.adapter.out.persistence.repository.po;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "ORDER")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderPo {
+
+	@Id
+	@Column(name = "ORDER_ID")
+	private String orderId;
+
+	@Column(name = "SKU")
+	private String sku;
+
+	@Column(name = "PRODUCT_NAME")
+	private String productName;
+
+	@Column(name = "AMT")
+	private int amt;
+	
+}

@@ -1,0 +1,33 @@
+package com.example.demo.adapter.out.persistence.repository.converter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.adapter.out.persistence.repository.po.CatalogPo;
+import com.example.demo.application.doamin.model.OrderDo;
+
+@Service
+public class CatalogConverter {
+	
+	public OrderDo poToDo(CatalogPo catalogPo) {
+		return OrderDo.builder()
+				.id(catalogPo.getId())
+				.serialNumber(catalogPo.getSerialNumber())
+				.pruductName(catalogPo.getProductName())
+				.desc(catalogPo.getDesc())	
+				.price(catalogPo.getPrice())
+				.img(catalogPo.getImg())
+				.build();
+	}
+	
+	public List<OrderDo> poToDo(List<CatalogPo> catalogPos) {
+		List<OrderDo> catalogDos=new ArrayList<>();
+		catalogPos.forEach(item->{
+			catalogDos.add(this.poToDo(item));
+		});
+		return catalogDos;
+	}
+
+}

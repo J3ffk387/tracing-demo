@@ -1,0 +1,10 @@
+package com.example.demo.application.port.out;
+
+public interface CheckInventoryPort {
+
+	/**
+	 * Check Inventory
+	 * @return
+	 */
+	boolean check();
+}

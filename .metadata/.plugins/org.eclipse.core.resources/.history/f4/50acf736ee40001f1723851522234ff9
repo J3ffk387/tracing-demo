@@ -1,0 +1,20 @@
+package com.example.demo.adapter.out.rest;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.adapter.out.persistence.SaveOrderAdpter;
+import com.example.demo.application.port.out.CheckInventoryPort;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class CheckInventoryAdapter implements CheckInventoryPort {
+	
+	@Override
+	public boolean check() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

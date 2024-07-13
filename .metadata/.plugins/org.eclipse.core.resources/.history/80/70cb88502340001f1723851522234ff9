@@ -1,0 +1,13 @@
+package com.example.demo.application.port.out;
+
+import java.util.List;
+
+import com.example.demo.application.doamin.model.OrderDo;
+
+public interface SaveOrderPort {
+	
+	OrderDo getCatalog(long id);
+
+	List<OrderDo> getAllCatalog();
+
+}

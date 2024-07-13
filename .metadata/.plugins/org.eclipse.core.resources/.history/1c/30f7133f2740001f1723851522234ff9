@@ -1,0 +1,6 @@
+INSERT INTO CATALOG (SERIAL_NUMBER, PRODUCT_NAME, DESCRIPTION, PRICE, IMAGE) VALUES
+('SN123456', 'Product 1', 'Description for product 1', 1000, 'image1.jpg'),
+('SN123457', 'Product 2', 'Description for product 2', 2000, 'image2.jpg'),
+('SN123458', 'Product 3', 'Description for product 3', 3000, 'image3.jpg'),
+('SN123459', 'Product 4', 'Description for product 4', 4000, 'image4.jpg'),
+('SN123460', 'Product 5', 'Description for product 5', 5000, 'image5.jpg');

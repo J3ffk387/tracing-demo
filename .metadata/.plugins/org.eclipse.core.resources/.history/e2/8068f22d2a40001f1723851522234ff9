@@ -1,0 +1,47 @@
+package com.example.demo.application.doamin.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.example.demo.application.doamin.model.OrderDo;
+import com.example.demo.application.port.in.PlaceOrderUseCase;
+import com.example.demo.application.port.out.SaveOrderPort;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class PlaceOrderService implements PlaceOrderUseCase {
+	
+	@Autowired
+	SaveOrderPort saveOrderPort;
+	
+	@Autowired
+	RestTemplate restTemplate;
+	
+	@Override
+	public String place(OrderDo orderDo) {
+		// Create Order Id
+		orderDo.createOrderId();
+		log.info("Order Id:{} Created",orderDo.getOrderId());
+		// Check SKU Inventory
+		
+		log.info("Check SKU:{}",orderDo.getSku());
+		
+		// Check Inventory
+		log.info("Check Inventory Amoutn:{}");
+		
+		// Deduct inventory
+		log.info("Deduct Inventory Amoutn:{}");
+		
+		// Place Order
+		saveOrderPort.save(orderDo);
+		return orderDo.getOrderId();
+	}	
+	
+
+
+
+
+}
