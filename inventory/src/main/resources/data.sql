@@ -1,0 +1,6 @@
+INSERT INTO INVENTORY (SKU, PRODUCT_NAME, AMT) VALUES
+('SN0001', '玩具BB槍', 100),
+('SN0002', '太白粉', 100),
+('SN0003', '玩具假鈔', 100),
+('SN0004', '球棒', 100),
+('SN0005', '豐田海獅', 100);
