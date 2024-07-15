@@ -1,0 +1,71 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: web-config
+data:
+  config.json: >
+    { "catalogURL":"https://catalog-tracing-demo.apps.cluster-wszl5.dynamic.redhatworkshops.io/api/v1/catalogs","orderURL":"https://order-tracing-demo.apps.cluster-wszl5.dynamic.redhatworkshops.io/api/v1/orders"}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: tracing-demo
+  name: store-app
+spec:
+  selector:
+    matchLabels:
+      app: store-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: store-app
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: web-config
+            defaultMode: 420
+      containers:
+        - name: container
+          image: quay.io/ske/store-app:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /opt/app-root/src/assets/config.json
+              subPath: config.json
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: store-app
+spec:
+  selector:
+    app: store-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: store-app
+spec:
+  to:
+    kind: Service
+    name: store-app
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: ''
+    destinationCACertificate: ''
+  port:
+    targetPort: 8080
+  alternateBackends: []
