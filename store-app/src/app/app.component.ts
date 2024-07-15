@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { APP_INITIALIZER, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -21,22 +21,25 @@ export class AppComponent implements OnInit {
    */
   title = 'store-app';
 
-  catalogsAPIUrl = 'http://localhost:8080/api/v1/catalogs';
+  catalogsAPIUrl:any = '';
 
-  ordersAPIUrl = 'http://localhost:8082/api/v1/orders';
+  ordersAPIUrl:any = '';
 
   catalogs:any;
 
   constructor(private http: HttpClient) {
-
   }
 
 
   ngOnInit(): void {
-    this.http.get<any>(this.catalogsAPIUrl).subscribe(item=>{
-      console.log(item);
-      this.catalogs=item.data;
-    });
+    this.http.get<any>('/assets/config.json').subscribe(item=>{
+      this.catalogsAPIUrl=item.catalogURL;
+      this.ordersAPIUrl=item.orderURL;
+      this.http.get<any>(this.catalogsAPIUrl).subscribe(item=>{
+        this.catalogs=item.data;
+      });
+    })
+
   }
 
   placeOrder(sku:string){
