@@ -17,8 +17,9 @@ cp ../order/target/order-0.0.1-SNAPSHOT.jar ./
 podman build -f Containerfile-Java --build-arg APP_NAME=order -t order:latest
 rm -f order-0.0.1-SNAPSHOT.jar
 
-# Frontend store-app
-# cd store-app
-# npm i 
-# ng build
-# cd ..
+#Frontend store-app
+cd ../store-app
+npm i
+ng build
+cd ../build
+podman build -f Containerfile-Ng -t store-app:latest
