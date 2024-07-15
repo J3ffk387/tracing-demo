@@ -22,4 +22,6 @@ cd ../store-app
 npm i
 ng build
 cd ../build
+cp -r ../store-app/dist/store-app/browser ./
 podman build -f Containerfile-Ng -t store-app:latest
+rm -rf ./browser
