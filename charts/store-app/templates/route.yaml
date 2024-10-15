@@ -1,0 +1,19 @@
+{{- range .Values.services }}
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ .name }}
+spec:
+  host: {{ .name }}-{{ $.Values.ns }}.{{ $.Values.baseDomain }}
+  to:
+    kind: Service
+    name: {{ .name }}
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: ''
+    destinationCACertificate: ''
+  port:
+    targetPort: {{ .port }}
+  alternateBackends: []
+---
+{{- end }}

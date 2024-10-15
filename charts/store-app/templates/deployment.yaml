@@ -1,0 +1,48 @@
+{{- range .Values.services }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  replicas: {{ .replica }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      {{- if eq .name "store-app" }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: web-config
+            defaultMode: 420
+      {{- end }}
+      containers:
+        - name: container
+          image: {{ .registry }}/{{ .repository }}/{{ .name }}:{{ .version }}
+          ports:
+            - containerPort: {{ .port }}
+              protocol: TCP
+          {{- if eq .name "order" }}
+          env:
+            - name: CATALOG_URL
+              value: 'http://catalog:8080/api/v1/catalogs/'
+            - name: INVENTORY_URL
+              value: 'http://inventory:8080/api/v1/inventories/'
+          {{- end }}
+          {{- if eq .name "store-app" }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /opt/app-root/src/assets/config.json
+              subPath: config.json
+          {{- end }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+---
+{{- end }}

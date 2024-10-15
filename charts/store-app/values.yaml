@@ -1,0 +1,27 @@
+baseDomain: apps.cluster-4cbqd.4cbqd.sandbox987.opentlc.com
+ns: speaker01
+services:
+  - name: catalog
+    registry: quay.io
+    repository: otel-demo
+    version: v1.0.0
+    replica: 1
+    port: 8080
+  - name: inventory
+    registry: quay.io
+    repository: otel-demo
+    version: v1.0.0
+    replica: 1
+    port: 8080
+  - name: order
+    registry: quay.io
+    repository: otel-demo
+    version: v1.0.0
+    replica: 1
+    port: 8080
+  - name: store-app
+    registry: quay.io
+    repository: otel-demo
+    version: v1.0.0
+    replica: 1
+    port: 8080

@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: web-config
+data:
+  config.json: >
+    { "catalogURL":"https://catalog-{{ $.Values.ns }}.{{ $.Values.baseDomain }}/api/v1/catalogs","orderURL":"https://order-{{ $.Values.ns }}.{{ $.Values.baseDomain }}/api/v1/orders"}
+---
