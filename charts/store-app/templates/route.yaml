@@ -10,10 +10,7 @@ spec:
     name: {{ .name }}
   tls:
     termination: edge
-    insecureEdgeTerminationPolicy: ''
-    destinationCACertificate: ''
   port:
     targetPort: {{ .port }}
-  alternateBackends: []
 ---
 {{- end }}

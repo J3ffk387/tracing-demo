@@ -1,5 +1,5 @@
-baseDomain: apps.cluster-4cbqd.4cbqd.sandbox987.opentlc.com
-ns: speaker01
+baseDomain: apps.cluster-d4jxd.d4jxd.sandbox2793.opentlc.com
+ns: developer02
 services:
   - name: catalog
     registry: quay.io
