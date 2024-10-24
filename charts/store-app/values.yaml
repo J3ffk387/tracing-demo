@@ -5,23 +5,23 @@ services:
     registry: quay.io
     repository: otel-demo
     version: v1.0.0
-    replica: 2
+    replica: 1
     port: 8080
   - name: inventory
     registry: quay.io
     repository: otel-demo
     version: v1.0.0
-    replica: 2
+    replica: 1
     port: 8080
   - name: order
     registry: quay.io
     repository: otel-demo
     version: v1.0.0
-    replica: 2
+    replica: 1
     port: 8080
   - name: store-app
     registry: quay.io
     repository: otel-demo
     version: v1.0.0
-    replica: 2
+    replica: 1
     port: 8080
