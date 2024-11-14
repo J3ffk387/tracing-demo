@@ -26,6 +26,7 @@ spec:
           ports:
             - containerPort: {{ .port }}
               protocol: TCP
+              name: http
           {{- if eq .name "order" }}
           env:
             - name: CATALOG_URL
